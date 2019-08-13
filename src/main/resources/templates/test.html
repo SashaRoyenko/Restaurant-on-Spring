@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Users</h1>
+<div th:each="user : ${users}">
+    <b th:text="${user.id}"/>
+    <b th:text="${user.firstName}"/>
+    <b th:text="${user.LastName}"/>
+    <b th:text="${user.email}"/>
+    <b th:text="${user.phone}"/>
+    <b th:text="${user.role}"/>
+</div>
+<h1>Ingredients</h1>
+<div th:each="ingredient : ${ingredients}">
+    <b th:text="${ingredient.id}"/>
+    <b th:text="${ingredient.name}"/>
+</div>
+<h1>Drinks</h1>
+<div th:each="drink : ${drinks}">
+    <b th:text="${drink.id}"/>
+    <b th:text="${drink.name}"/>
+    <b th:text="${drink.price}"/>
+    <b th:text="${drink.volume}"/>
+</div>
+<h1>Dishes</h1>
+<div th:each="dish : ${dishes}">
+    <b th:text="${dish.id}"/>
+    <b th:text="${dish.name}"/>
+    <b th:text="${dish.price}"/>
+    <b th:text="${dish.weight}"/>
+    <ul th:each="ingredient : ${dish.ingredientList}">
+        <li>
+            <b th:text="${ingredient.id}"/>
+            <b th:text="${ingredient.name}"/>
+        </li>
+    </ul>
+</div>
+
+<h1>Orders</h1>
+<div th:each="order : ${orders}">
+    <b th:text="${order.id}"/>
+    <b th:text="${order.address}"/>
+    <b th:text="${order.date}"/>
+    <b th:text="${order.bill}"/>
+    <b th:text="${order.paid}"/>
+    <b th:text="${order.checked}"/>
+
+    <p>
+        <b th:text="${order.user.id}"/>
+        <b th:text="${order.user.firstName}"/>
+        <b th:text="${order.user.LastName}"/>
+        <b th:text="${order.user.email}"/>
+        <b th:text="${order.user.phone}"/>
+        <b th:text="${order.user.role}"/>
+    </p>
+</div>
+<h1>Order Products</h1>
+
+<div th:each="orderProduct : ${orderProducts}">
+    <p>
+        <h2 th:text="${orderProduct.id}"/>
+        <b th:text="${orderProduct.user.id}"/>
+        <b th:text="${orderProduct.user.firstName}"/>
+        <b th:text="${orderProduct.user.LastName}"/>
+        <b th:text="${orderProduct.user.email}"/>
+        <b th:text="${orderProduct.user.phone}"/>
+        <b th:text="${orderProduct.user.role}"/>
+    </p>
+    <div th:each="dish : ${orderProduct.dishList}"/>
+    <p>
+        <b th:text="${dish.id}"/>
+        <b th:text="${dish.name}"/>
+        <b th:text="${dish.price}"/>
+        <b th:text="${dish.weight}"/>
+    <ul th:each="ingredient : ${dish.ingredientList}">
+        <li>
+            <b th:text="${ingredient.id}"/>
+            <b th:text="${ingredient.name}"/>
+        </li>
+    </ul>
+    </p>
+    <div th:each="drink : ${orderProduct.drinkList}"/>
+    <p>
+        <b th:text="${drink.id}"/>
+        <b th:text="${drink.name}"/>
+        <b th:text="${drink.price}"/>
+        <b th:text="${drink.volume}"/>
+    </p>
+</div>
+
+</body>
+</html>

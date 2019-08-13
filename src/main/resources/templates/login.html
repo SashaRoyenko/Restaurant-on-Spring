@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+</head>
+<body>
+
+<!--<section class="home-slider owl-carousel">-->
+<!--    <div class="slider-item" style="background-image: url(${pageContext.request.contextPath}/images/bg_1.jpg);" data-stellar-background-ratio="0.5">-->
+<!--        <div class="overlay"></div>-->
+<!--        <div class="container">-->
+<!--            <div class="row slider-text align-items-center justify-content-center">-->
+<!--                <div class="col-md-10 col-sm-12 ftco-animate text-center">-->
+<!--                    <p class="breadcrumbs"><span class="mr-2"><a href="/home">-->
+<!--                        </a></span> <span></span></p>-->
+<!--                    <h1 class="mb-3" text = "${label.login.title}"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<div class="login_wrapper">
+    <div class="login">
+        <form th:action="@{/login}" method="post">
+            <p><span class="fontawesome-user"></span>
+                <input type="text" placeholder="Email" name = "username" required></p>
+            <p><span class="fontawesome-lock"></span>
+                <input type="password" placeholder="Password" name = "password" required></p>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <p><input type="submit" value="label.btn.enter"/></p>
+        </form>
+<!--        <c:if test="${param.userExist==false}">-->
+<!--            <h3>There is no such user</h3>-->
+<!--        </c:if>-->
+
+<!--        <p th:text="${label.login.without_account}"/> &nbsp;&nbsp;<a href="${pageContext.request.contextPath}/tasty-restaurant/registration"-->
+<!--            th:text="${label.registration}"/><span class="fontawesome-arrow-right"></span>-->
+    </div>
+</div>
+</body>
+</html>
+<!--<jsp:include page="parts/footer.jsp"/>-->
