@@ -17,22 +17,22 @@ import java.util.List;
 public class OrderProducts {
     @Id
     @Column(name = "order_products_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne
-    @JoinColumn (name="user_user_id")
+    @JoinColumn(name = "user_user_id")
     private User user;
     @ManyToMany
     @JoinTable(
-            name="dishes",
-            joinColumns ={@JoinColumn(name="order_products_id")},
+            name = "dishes",
+            joinColumns = {@JoinColumn(name = "order_products_id")},
             inverseJoinColumns = {@JoinColumn(name = "dish_id")}
     )
     private List<Dish> dishList;
     @ManyToMany
     @JoinTable(
-            name="drinks",
-            joinColumns ={@JoinColumn(name="order_products_id")},
+            name = "drinks",
+            joinColumns = {@JoinColumn(name = "order_products_id")},
             inverseJoinColumns = {@JoinColumn(name = "drink_id")}
     )
     private List<Drink> drinkList;

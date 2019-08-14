@@ -31,8 +31,8 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/")
-    public String test(Model model){
+    @GetMapping("/test")
+    public String test(Model model) {
         List<User> users = userRepository.findAll();
         List<Drink> drinks = drinkRepository.findAll();
         List<Ingredient> ingredients = ingredientRepository.findAll();

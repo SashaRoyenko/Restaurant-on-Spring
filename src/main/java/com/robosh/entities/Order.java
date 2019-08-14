@@ -12,8 +12,8 @@ import java.util.Date;
 @Entity(name = "orders")
 public class Order {
     @Id
-    @Column(name="order_id")
-    @GeneratedValue
+    @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NonNull
     private String address;
@@ -25,6 +25,6 @@ public class Order {
     private boolean checked = false;
 
     @OneToOne
-    @JoinColumn(name="user_user_id")
+    @JoinColumn(name = "user_user_id")
     private User user;
 }

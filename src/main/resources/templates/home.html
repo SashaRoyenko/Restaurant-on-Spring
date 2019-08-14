@@ -1,47 +1,46 @@
-
-<!--<fmt:setLocale value="${locale}"/>-->
-<!--<fmt:setBundle basename="${bundle}"/>-->
-
-<html lang="${locale}">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--    <jsp:include page="parts/link.jsp"/>-->
-<!--    <title><fmt:message key="label.home.title"/></title>-->
+    <div th:replace="~{parts/link :: link}"></div>
+    <title th:text="#{label.home.title}"></title>
 </head>
 <body>
-<!--<jsp:include page="parts/nav.jsp"/>-->
+<div th:replace="~{parts/nav :: navigation}"></div>
+
 <section class="home-slider owl-carousel">
-    <div class="slider-item" style="background-image: url('${pageContext.request.contextPath}/images/bg_1.jpg');">
+        <div class="slider-item" style="background-image: url('../images/bg_1.jpg');">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text align-items-center justify-content-center text-center">
+                    <div class="col-md-10 col-sm-12 ftco-animate">
+                        <h1 class="mb-3" th:text="#{label.home.slide1}"></h1>
+                        <p><a href="/registration"
+                              class="btn btn-primary btn-outline-white px-5 py-3"
+                              th:text="#{label.registration.title}"></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="slider-item" style="background-image: url('../images/bg_2.jpg');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row slider-text align-items-center justify-content-center text-center">
                 <div class="col-md-10 col-sm-12 ftco-animate">
-                    <h1 class="mb-3">label.home.slide1</h1>
-                    <p><a href="${pageContext.request.contextPath}/tasty-restaurant/registration" class="btn btn-primary btn-outline-white px-5 py-3">
-                        "label.registration.title"</a>
+                    <h1 class="mb-3" th:text="#{label.home.slide2}"></h1>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="slider-item" style="background-image: url('${pageContext.request.contextPath}/images/bg_2.jpg');">
+    <div class="slider-item" style="background-image: url('../images/bg_3.jpg');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row slider-text align-items-center justify-content-center text-center">
                 <div class="col-md-10 col-sm-12 ftco-animate">
-                    <h1 class="mb-3">"label.home.slide2"</h1>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="slider-item" style="background-image: url('${pageContext.request.contextPath}/images/bg_3.jpg');">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row slider-text align-items-center justify-content-center text-center">
-                <div class="col-md-10 col-sm-12 ftco-animate">
-                    <h1 class="mb-3">"label.home.slide3"</h1></p>
+                    <h1 class="mb-3" th:text="#{label.home.slide3}"></h1></p>
                 </div>
             </div>
         </div>
@@ -52,18 +51,22 @@
 <section class="ftco-section-2">
     <div class="container d-flex">
         <div class="section-2-blocks-wrapper row">
-            <div class="img col-sm-12 col-lg-6" style="background-image: url('${pageContext.request.contextPath}/images/about-2.jpg');">
+            <div class="img col-sm-12 col-lg-6"
+                 style="background-image: url('../images/about-2.jpg');">
             </div>
             <div class="text col-lg-6 ftco-animate">
                 <div class="text-inner align-self-start">
-                    <span class="subheading">label.home.about.title</span>
-                    <h3 class="heading">label.home.about.heading</h3>
-                    <p>label.home.about.content1</p>
-                    <p>label.home.about.content2</p>
+                    <span class="subheading" th:text="#{label.home.about.title}"></span>
+                    <h3 class="heading" th:text="#{label.home.about.heading}"></span></h3>
+                    <p th:text="#{label.home.about.content1}"></p>
+                    <p th:text="#{label.home.about.content2}"></p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!--<jsp:include page="parts/footer.jsp"/>-->
+<div th:replace="~{parts/footer :: footer}"></div>
+</body>
+</html>
+

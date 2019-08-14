@@ -1,46 +1,25 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--    <jsp:include page="parts/link.jsp"/>-->
-    <title> label.registration.title</title>
+    <div th:replace="~{parts/link :: link}"></div>
+    <title th:text="#{label.registration.title}"></title>
 </head>
 <body>
-<!--<jsp:include page="parts/nav.jsp"/>-->
-<section class="home-slider owl-carousel">
-    <div class="slider-item" style="background-image: url(${pageContext.request.contextPath}/images/bg_1.jpg);" data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row slider-text align-items-center justify-content-center">
-                <div class="col-md-10 col-sm-12 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="/home">
-<!--                        <fmt:message key="label.home.title"/>-->
-                    </a>
-                    </span>
-                        <span>
-
-<!--                            <fmt:message key="label.registration.title"/>-->
-                        </span></p>
-                    <h1 class="mb-3">
-<!--                        <fmt:message key="label.registration.title"/>-->
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div th:replace="~{parts/nav :: navigation}"></div>
+<div th:replace="~{parts/nav :: section('label.registration.title')}"></div>
 
 <section class="ftco-section">
     <div class="container">
         <div class="row no-gutters justify-content-center mb-5 pb-5">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <h2>
-<!--                    <fmt:message key="label.registration.title"/>-->
+                    <!--                    <fmt:message key="label.registration.title"/>-->
                 </h2>
             </div>
         </div>
         <div class="row d-flex">
             <div class="col-md-4 ftco-animate img"
-                 style="background-image: url(../static/images/bg_1.jpg);"></div>
+                 style="background-image: url(../images/bg_1.jpg);"></div>
             <div class="col-md-8 ftco-animate makereservation p-5 bg-light">
                 <form th:action="@{/registration}" method="post">
                     <div class="row">
@@ -85,33 +64,33 @@
                     </div>
                     <div class="col-md-12 mt-3">
                         <div class="form-group">
-                            <input type="submit" value="=label.btn.confirm/>"
+                            <input type="submit" th:value="#{label.btn.confirm}"
                                    class="btn btn-primary py-3 px-5">
                         </div>
                     </div>
                 </form>
-<!--                <c:if test="${param.correctName==false}">-->
-<!--                    <p>Un correct first name or last name</p>-->
-<!--                </c:if>-->
-<!--                <c:if test="${param.correctPhone==false}">-->
-<!--                    <p>Un correct phone</p>-->
-<!--                </c:if>-->
-<!--                <c:if test="${param.correctEmail==false}">-->
-<!--                    <p>Un correct email</p>-->
-<!--                </c:if>-->
-<!--                <c:if test="${param.correctPassword==false}">-->
-<!--                    <p>Un correct password. It shout consist at least one uppercase letter, number and have at least 8-->
-<!--                        characters</p>-->
-<!--                </c:if>-->
-<!--                <c:if test="${param.emailExist==true}">-->
-<!--                    <p>User with such email is exist</p>-->
-<!--                </c:if>-->
-<!--                <c:if test="${param.phoneExist==true}">-->
-<!--                    <p>User with such phone is exist</p>-->
-<!--                </c:if>-->
-<!--                <c:if test="${param.passwordMatch==false}">-->
-<!--                    <p>Passwords are not equal</p>-->
-<!--                </c:if>-->
+                <!--                <c:if test="${param.correctName==false}">-->
+                <!--                    <p>Un correct first name or last name</p>-->
+                <!--                </c:if>-->
+                <!--                <c:if test="${param.correctPhone==false}">-->
+                <!--                    <p>Un correct phone</p>-->
+                <!--                </c:if>-->
+                <!--                <c:if test="${param.correctEmail==false}">-->
+                <!--                    <p>Un correct email</p>-->
+                <!--                </c:if>-->
+                <!--                <c:if test="${param.correctPassword==false}">-->
+                <!--                    <p>Un correct password. It shout consist at least one uppercase letter, number and have at least 8-->
+                <!--                        characters</p>-->
+                <!--                </c:if>-->
+                <!--                <c:if test="${param.emailExist==true}">-->
+                <!--                    <p>User with such email is exist</p>-->
+                <!--                </c:if>-->
+                <!--                <c:if test="${param.phoneExist==true}">-->
+                <!--                    <p>User with such phone is exist</p>-->
+                <!--                </c:if>-->
+                <!--                <c:if test="${param.passwordMatch==false}">-->
+                <!--                    <p>Passwords are not equal</p>-->
+                <!--                </c:if>-->
             </div>
 
         </div>
@@ -119,6 +98,7 @@
 
 </section>
 
-<!--<jsp:include page="parts/footer.jsp"/>-->
+<div th:replace="~{parts/footer :: footer}"></div>
 </body>
 </html>
+
