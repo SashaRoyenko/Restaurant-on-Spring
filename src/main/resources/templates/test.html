@@ -9,7 +9,7 @@
 <div th:each="user : ${users}">
     <b th:text="${user.id}"/>
     <b th:text="${user.firstName}"/>
-    <b th:text="${user.LastName}"/>
+    <b th:text="${user.lastName}"/>
     <b th:text="${user.email}"/>
     <b th:text="${user.phone}"/>
     <b th:text="${user.role}"/>
@@ -52,7 +52,7 @@
     <p>
         <b th:text="${order.user.id}"/>
         <b th:text="${order.user.firstName}"/>
-        <b th:text="${order.user.LastName}"/>
+        <b th:text="${order.user.lastName}"/>
         <b th:text="${order.user.email}"/>
         <b th:text="${order.user.phone}"/>
         <b th:text="${order.user.role}"/>
@@ -65,31 +65,33 @@
     <h2 th:text="${orderProduct.id}"/>
     <b th:text="${orderProduct.user.id}"/>
     <b th:text="${orderProduct.user.firstName}"/>
-    <b th:text="${orderProduct.user.LastName}"/>
+    <b th:text="${orderProduct.user.lastName}"/>
     <b th:text="${orderProduct.user.email}"/>
     <b th:text="${orderProduct.user.phone}"/>
     <b th:text="${orderProduct.user.role}"/>
     </p>
-    <div th:each="dish : ${orderProduct.dishList}"/>
-    <p>
-        <b th:text="${dish.id}"/>
-        <b th:text="${dish.name}"/>
-        <b th:text="${dish.price}"/>
-        <b th:text="${dish.weight}"/>
-    <ul th:each="ingredient : ${dish.ingredientList}">
-        <li>
-            <b th:text="${ingredient.id}"/>
-            <b th:text="${ingredient.name}"/>
-        </li>
-    </ul>
+    <div th:each="dish : ${orderProduct.dishList}">
+        <p>
+            <b th:text="${dish.id}"/>
+            <b th:text="${dish.name}"/>
+            <b th:text="${dish.price}"/>
+            <b th:text="${dish.weight}"/>
+        <ul th:each="ingredient : ${dish.ingredientList}">
+            <li>
+                <b th:text="${ingredient.id}"/>
+                <b th:text="${ingredient.name}"/>
+            </li>
+        </ul>
+    </div>
     </p>
-    <div th:each="drink : ${orderProduct.drinkList}"/>
-    <p>
-        <b th:text="${drink.id}"/>
-        <b th:text="${drink.name}"/>
-        <b th:text="${drink.price}"/>
-        <b th:text="${drink.volume}"/>
-    </p>
+    <div th:each="drink : ${orderProduct.drinkList}">
+        <p>
+            <b th:text="${drink.id}"/>
+            <b th:text="${drink.name}"/>
+            <b th:text="${drink.price}"/>
+            <b th:text="${drink.volume}"/>
+        </p>
+    </div>
 </div>
 
 </body>

@@ -48,4 +48,22 @@ public class MainController {
 
         return "test";
     }
+
+    @GetMapping("/save")
+    public String save(Model model){
+        User user = userRepository.findByEmail("sasharoyenko@gmail.com");
+        List<Dish> dishes = List.of(
+                dishRepository.findById((long) 1).get(),
+                dishRepository.findById((long) 3).get());
+        List<Drink> drinks =   List.of(
+                drinkRepository.findById((long) 1).get(),
+                drinkRepository.findById((long) 2).get());
+        OrderProducts orderProducts = OrderProducts.builder()
+                .user(user)
+                .dishList(dishes)
+                .drinkList(drinks)
+                .build();
+        orderProductsRepository.save(orderProducts);
+        return  "test";
+    }
 }

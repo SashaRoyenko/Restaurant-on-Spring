@@ -167,17 +167,21 @@
                     <input type="email" placeholder="Email" name="username" required></p>
                 <p><span class="fontawesome-lock"></span>
                     <input type="password" placeholder="Password" name="password" required></p>
-                <p><input type="submit" th:value="#{label.btn.enter}"/>"></p>
+                <p><input type="submit" th:value="#{label.btn.enter}"/></p>
             </form>
             <!--        <%&#45;&#45;-->
             <!--        <h3>-->
             <!--            <c:out value="${errorMessage}"/>-->
             <!--        </h3>-->
             <!--        &#45;&#45;%>-->
-            <p th:text="#{label.login.without_account}"/>
-            &nbsp;&nbsp;<a
-                th:href="@{/registration}" th:text="#{label.registration}"/>
-            </a><span class="fontawesome-arrow-right"></span></p>
+            <p/>
+            <th:block th:text="#{label.login.without_account}"></th:block>
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;<a th:href="@{/registration}"/>
+            <th:block  th:text="#{label.registration}"/>
+            </a>
+            <span class="fontawesome-arrow-right"></span>
+            </p>
         </div>
     </div>
 

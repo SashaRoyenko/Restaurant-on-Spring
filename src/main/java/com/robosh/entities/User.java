@@ -30,6 +30,8 @@ public class User {
     private String phone;
     @Column(name = "password", nullable = false)
     private String password;
+    @Transient
+    private String confirmPassword;
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 

@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label for="">Confirm Password</label>
                                 <input type="password" class="form-control" placeholder="Confirm Password"
-                                       name="confirmedPassword">
+                                       name="confirmPassword">
                             </div>
                         </div>
 
@@ -69,6 +69,9 @@
                         </div>
                     </div>
                 </form>
+                <div th:if="${message}">
+                    <p>Such user is exist</p>
+                </div>
                 <!--                <c:if test="${param.correctName==false}">-->
                 <!--                    <p>Un correct first name or last name</p>-->
                 <!--                </c:if>-->

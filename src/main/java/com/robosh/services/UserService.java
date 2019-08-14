@@ -1,4 +1,9 @@
 package com.robosh.services;
 
-public class UserService {
+import com.robosh.entities.User;
+
+public interface UserService extends Service<User>{
+    void register(User user);
+    User findByEmail(String email);
+    User getFromAuthentication();
 }

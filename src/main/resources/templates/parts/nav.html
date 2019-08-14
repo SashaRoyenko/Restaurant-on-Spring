@@ -30,12 +30,12 @@
                             </a></li>
                         <!--                <c:choose>-->
                         <!--                    <c:when test="${sessionScope.sessionUser eq null}">-->
-<!--                        <li class="nav-item" id="user">-->
-<!--                            <a class="nav-link">-->
+                        <li class="nav-item" id="user">
+                            <a class="nav-link">
                                 <!--                    </c:when>-->
                                 <!--                    <c:otherwise>-->
-                        <li class="nav-item">
-                            <a href="/login" class="nav-link">
+<!--                        <li class="nav-item">-->
+<!--                            <a th:href="@{/login}" class="nav-link">-->
                                 <!--                    </c:otherwise>-->
                                 <!--                </c:choose>-->
                                 <svg class="nav-svg ">
@@ -43,7 +43,7 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="nav-item"><a href="/user/basket"
+                        <li class="nav-item"><a th:href="@{/user/basket}"
                                                 class="nav-link">
                             <svg class="nav-svg">
                                 <use x="0" y="0"

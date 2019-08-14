@@ -1,6 +1,7 @@
 package com.robosh.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -8,7 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import javax.sql.DataSource;
 
@@ -19,13 +22,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/test", "/home", "/about", "/menu")
-                .permitAll()
-                .antMatchers("/user/**").hasAnyAuthority("USER")
+                .antMatchers("/", "/registration", "/test").permitAll()
+                .antMatchers("/home", "/about", "/menu").permitAll()
+                .antMatchers("/error/**").permitAll()
+                .antMatchers("/user/**", "basket/").hasAnyAuthority("USER")
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -47,24 +55,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .passwordEncoder(bCryptPasswordEncoder())
                 .usersByUsernameQuery("select email, password, true from user where email=?")
                 .authoritiesByUsernameQuery("select email, role from user where email=?");
-
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .withUser("user").password("password").roles("USER")
-//                .and()
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .withUser("manager").password("password").roles("MANAGER");
     }
 
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                .antMatchers("/static/**", "/static/css/**");
-//    }
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall fireWall = new StrictHttpFirewall();
+        fireWall.setAllowUrlEncodedSlash(true);
+        return fireWall;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .httpFirewall(allowUrlEncodedSlashHttpFirewall())
+                .ignoring()
+                .antMatchers("/css/**", "/images/**", "/js/**", "/fonts/**");
+    }
 
 }

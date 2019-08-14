@@ -1,7 +1,7 @@
 package com.robosh.controller;
 
 import com.robosh.entities.User;
-import com.robosh.repositories.UserRepository;
+import com.robosh.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
     @Autowired
-    UserRepository userRepository;
+    UserServiceImpl userService;
 
     @GetMapping("/registration")
     public String registration() {
@@ -21,12 +21,12 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registerUser(User user, Map<String, Object> model) {
-        User userFromDb = userRepository.findByEmail(user.getEmail());
+        User userFromDb = userService.findByEmail(user.getEmail());
         if (userFromDb != null) {
             model.put("message", "User with such email is exist");
             return "registration";
         }
-        userRepository.save(user);
+        userService.register(user);
         return "redirect:/login";
     }
 

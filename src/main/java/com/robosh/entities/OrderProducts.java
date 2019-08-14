@@ -37,4 +37,11 @@ public class OrderProducts {
     )
     private List<Drink> drinkList;
 
+    public void addDish(Dish dish) {
+        dishList.add(dish);
+    }
+
+    public void addDrink(Drink drink) {
+        drinkList.add(drink);
+    }
 }

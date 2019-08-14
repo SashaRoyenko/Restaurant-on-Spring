@@ -49,7 +49,7 @@
                                                 <p>
                                                     <th:block th:each="ingredient : ${dish.ingredientList}">
                                                         <span class="mr-1"
-                                                               th:text="${ingredient.ingredientName}"></span>
+                                                               th:text="${ingredient.name}"></span>
                                                     </th:block>
                                                 </p>
                                                 <p>
@@ -62,7 +62,7 @@
                                                     <th:block th:text="${dish.price}"/>
                                                     <th:message th:text="#{label.price}"/></span>
 <!--                                                <th:if ${}.role ne 'ADMIN'}">-->
-                                                    <form th:action="@{/basket/__{dish.id}__}"
+                                                    <form th:action="@{user/basket/dish/__${dish.id}__}"
                                                     method="post">
                                                     <input class="menu_btn btn" type="submit"
                                                            th:value="#{label.btn.add}"/>
@@ -95,17 +95,17 @@
                                                     <th:block th:text="${drink.price}"/>
                                                     <th:block th:text="#{label.price}"/></span>
 <!--                                                <c:if test="${sessionScope.sessionUser.role ne 'ADMIN'}">-->
-                                                    <form th:action="@{basket/__${drink.id}__}"
+                                                    <form th:action="@{user/basket/drink/__${drink.id}__}"
                                                     method="post">
                                                     <input class="menu_btn btn" type="submit"
-                                                           th:value="#{label.btn.add}"/>">
+                                                           th:value="#{label.btn.add}"/>
                                                     </form>
                                                 </c:if>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </th:block>>
+                            </th:block>
                         </div>
                     </div>
                 </div>
