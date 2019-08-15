@@ -10,8 +10,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import javax.sql.DataSource;
 
@@ -62,17 +64,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+//    @Bean
+//    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+//        StrictHttpFirewall fireWall = new StrictHttpFirewall();
+//        fireWall.setAllowUrlEncodedSlash(true);
+//        return fireWall;
+//    }
+//
+//    @Bean
+//    private HttpFirewall defaultHttpFirewall() {
+//        return new DefaultHttpFirewall();
+//    }
+
     @Bean
-    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-        StrictHttpFirewall fireWall = new StrictHttpFirewall();
-        fireWall.setAllowUrlEncodedSlash(true);
-        return fireWall;
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
         web
-                .httpFirewall(allowUrlEncodedSlashHttpFirewall())
+//                .httpFirewall(defaultHttpFirewall())
                 .ignoring()
                 .antMatchers("/css/**", "/images/**", "/js/**", "/fonts/**");
     }

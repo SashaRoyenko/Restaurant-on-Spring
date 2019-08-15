@@ -7,4 +7,5 @@ public interface OrderProductsService extends Service<OrderProducts> {
     OrderProducts findByUser(User user);
     void addFood(OrderProducts orderProducts, Object food);
     float getTotalPrice(OrderProducts orderProducts);
+    void deleteFood(OrderProducts orderProducts, Object food);
 }

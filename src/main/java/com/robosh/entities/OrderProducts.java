@@ -20,7 +20,7 @@ public class OrderProducts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne
-    @JoinColumn(name = "user_user_id")
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToMany
     @JoinTable(
@@ -44,4 +44,13 @@ public class OrderProducts {
     public void addDrink(Drink drink) {
         drinkList.add(drink);
     }
+
+    public void deleteDish(Dish dish) {
+        dishList.remove(dish);
+    }
+
+    public void deleteDrink(Drink drink) {
+        drinkList.remove(drink);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.robosh.entities;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,9 +18,9 @@ public class Order {
     private long id;
     @NonNull
     private String address;
-    @GeneratedValue
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @NonNull
     private float bill;
     private boolean paid = false;
     private boolean checked = false;

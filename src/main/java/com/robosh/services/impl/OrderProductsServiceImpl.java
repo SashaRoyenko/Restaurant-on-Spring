@@ -75,4 +75,16 @@ public class OrderProductsServiceImpl implements OrderProductsService {
         return price;
     }
 
+    @Override
+    public void deleteFood(OrderProducts orderProducts, Object food) {
+        if(food instanceof Dish){
+            orderProducts.deleteDish((Dish) food);
+            orderProductsRepository.save(orderProducts);
+        }
+        else if(food instanceof Drink){
+            orderProducts.deleteDrink((Drink) food);
+            orderProductsRepository.save(orderProducts);
+        }
+    }
+
 }

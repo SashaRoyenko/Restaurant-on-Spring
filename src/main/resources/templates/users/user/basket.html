@@ -36,8 +36,9 @@
                                                 <th:block th:text="${dish.price}"/>
                                                 <th:block th:text="#{label.price}"/>
                                                 </span>
-                                                <form th:action="@{user/basket/dish/__${dish.id}__}"
-                                                      method="delete">
+                                                <form th:action="@{/user/basket/dish/__${dish.id}__}"
+                                                      th:method="post">
+                                                    <input type="hidden" name="_method" value="delete">
                                                     <input class="menu_btn btn" type="submit"
                                                            th:value="#{label.btn.delete}">
                                                 </form>
@@ -67,8 +68,9 @@
                                                 <th:block th:text="${drink.price}"/>
                                                 <th:block th:text="#{label.price}"/>
                                                 </span>
-                                                <form th:action="@{user/basket/drink/__${drink.id}__}"
-                                                      method="delete">
+                                                <form th:action="@{/user/basket/drink/__${drink.id}__}"
+                                                      th:method="post">
+                                                    <input type="hidden" name="_method" value="delete">
                                                     <input class="menu_btn btn" type="submit"
                                                            th:value="#{label.btn.delete}"/>
                                                 </form>
@@ -88,13 +90,13 @@
     <div>
         <h5 class="mr-5">
             Total price:
-<!--            <th:block th:text="${totalPrice} == null ? '' : ${totalPrice}"/>-->
+            <th:block th:text="${totalPrice} == null ? '0' : ${totalPrice}"/>
             <th:block th:text="#{label.price}"/>
         </h5>
     </div>
-    <!--    <c:if test="${sessionScope.totalPrice ne 0}">-->
-    <!--        <input id="address_btn" class="btn btn-primary pl-5 pr-5" type="submit" value="<fmt:message key=" label.btn.buy"/>">-->
-    <!--    </c:if>-->
+        <th:block th:if="${totalPrice != 0}">
+            <input id="address_btn" class="btn btn-primary pl-5 pr-5" type="submit" th:value="#{label.btn.buy}"/>
+        </th:block>
 </section>
 <div id="address_wrapper">
     <div class="address_form">
