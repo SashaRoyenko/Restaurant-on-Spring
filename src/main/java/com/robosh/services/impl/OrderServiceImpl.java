@@ -2,6 +2,7 @@ package com.robosh.services.impl;
 
 import com.robosh.entities.Order;
 import com.robosh.entities.OrderProducts;
+import com.robosh.entities.User;
 import com.robosh.repositories.OrderRepository;
 import com.robosh.services.OrderProductsService;
 import com.robosh.services.OrderService;
@@ -15,6 +16,8 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderProductsService orderProductsService;
 
     @Override
     public void save(Order entity) {
@@ -43,7 +46,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(OrderProducts orderProducts, String address) {
-        OrderProductsService orderProductsService = new OrderProductsServiceImpl();
         Order order = Order.builder()
                 .address(address)
                 .user(orderProducts.getUser())
@@ -51,5 +53,20 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderRepository.save(order);
         orderProductsService.delete(orderProducts);
+    }
+
+    @Override
+    public List<Order> findByUserAndCheckedAndPaid(User user, boolean checked, boolean paid){
+        return orderRepository.findByUserAndCheckedAndPaid(user, checked, paid);
+    }
+
+    @Override
+    public List<Order> findByChecked(boolean checked) {
+        return orderRepository.findByChecked(checked);
+    }
+
+    @Override
+    public List<Order> findByPaid(boolean paid) {
+        return orderRepository.findByPaid(paid);
     }
 }

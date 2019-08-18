@@ -35,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/registration", "/test").permitAll()
                 .antMatchers("/home", "/about", "/menu").permitAll()
                 .antMatchers("/error/**").permitAll()
-                .antMatchers("/user/**", "basket/").hasAnyAuthority("USER")
+                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/user/**").hasAnyAuthority("USER")
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -71,10 +72,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return fireWall;
 //    }
 //
-//    @Bean
-//    private HttpFirewall defaultHttpFirewall() {
-//        return new DefaultHttpFirewall();
-//    }
+    @Bean
+    public HttpFirewall defaultHttpFirewall() {
+        return new DefaultHttpFirewall();
+    }
 
     @Bean
     public SpringSecurityDialect springSecurityDialect() {

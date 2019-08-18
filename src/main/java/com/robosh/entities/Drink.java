@@ -20,9 +20,9 @@ public class Drink {
     private long id;
     @Column(name = "drink_name", nullable = false)
     private String name;
-    @Column(name = "drink_price", nullable = false)
-    private float price;
     @Column(name = "drink_volume", nullable = false)
     private float volume;
+    @Column(name = "drink_price", nullable = false)
+    private float price;
 
 }

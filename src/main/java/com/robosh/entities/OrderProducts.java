@@ -19,8 +19,8 @@ public class OrderProducts {
     @Column(name = "order_products_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
     @ManyToMany
     @JoinTable(

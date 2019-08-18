@@ -6,6 +6,7 @@ import com.robosh.entities.OrderProducts;
 import com.robosh.entities.User;
 import com.robosh.services.impl.OrderProductsServiceImpl;
 import com.robosh.services.impl.UserServiceImpl;
+import org.apache.tomcat.jni.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user/basket")
-@Scope("prototype")
 public class BasketController {
     @Autowired
     private OrderProductsServiceImpl orderProductsService;
@@ -26,15 +26,23 @@ public class BasketController {
 
     private OrderProducts getOrderProducts() {
         User user = userService.getFromAuthentication();
-        return orderProductsService.findByUser(user);
+        orderProducts = orderProductsService.findByUser(user);
+        if (orderProducts == null) {
+            orderProducts = new OrderProducts();
+            orderProducts.setUser(user);
+            orderProductsService.save(orderProducts);
+            orderProducts = orderProductsService.findByUser(user);
+        }
+        return orderProducts;
     }
 
-    @GetMapping()
+    @RequestMapping
     public String basket(Model model) {
         orderProducts = getOrderProducts();
         model.addAttribute("products", orderProducts);
-        if (orderProducts != null) {
-            model.addAttribute("totalPrice", orderProductsService.getTotalPrice(orderProducts));
+        Float totalPrice = orderProductsService.getTotalPrice(orderProducts);
+        if (totalPrice != null) {
+            model.addAttribute("totalPrice", totalPrice);
         }
         return "users/user/basket";
     }

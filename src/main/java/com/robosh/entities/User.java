@@ -1,19 +1,16 @@
 package com.robosh.entities;
 
 import com.robosh.entities.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity(name = "user")
+@Data
 public class User {
     @Id
     @Column(name = "user_id")
@@ -34,5 +31,10 @@ public class User {
     private String confirmPassword;
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
+
+//    @OneToOne(mappedBy = "user")
+//    Order order;
+//    @OneToOne(mappedBy = "user")
+//    OrderProducts orderProducts;
 
 }

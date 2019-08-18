@@ -1,34 +1,38 @@
 package com.robosh.controller;
 
+import com.robosh.entities.Order;
 import com.robosh.entities.OrderProducts;
 import com.robosh.services.OrderProductsService;
 import com.robosh.services.OrderService;
-import com.robosh.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
-    private
-    OrderProductsService orderProductsService;
-
-
+    private OrderService orderService;
     @Autowired
-    private
-    OrderService orderService;
-
+    private OrderProductsService orderProductsService;
     @PostMapping("/buy/{orderProducts}")
-    public String order(@PathVariable OrderProducts orderProducts, @RequestParam String address){
+    public String order(@PathVariable OrderProducts orderProducts, @RequestParam String address) {
         orderService.createOrder(orderProducts, address);
         return "redirect:/menu";
+    }
+
+    @PutMapping("/pay/{order}")
+    public String pay(@PathVariable Order order){
+        order.setPaid(true);
+        orderService.save(order);
+        return "redirect:/user/account";
+    }
+
+    @PutMapping("/confirm/{order}")
+    public String confirm(@PathVariable Order order){
+        order.setChecked(true);
+        orderService.save(order);
+        return "redirect:/admin/account";
     }
 }

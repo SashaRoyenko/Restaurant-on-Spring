@@ -2,6 +2,8 @@ package com.robosh.controller;
 
 import com.robosh.entities.*;
 import com.robosh.repositories.*;
+import com.robosh.services.OrderService;
+import com.robosh.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,10 @@ public class MainController {
     private DrinkRepository drinkRepository;
     @Autowired
     private OrderProductsRepository orderProductsRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/home")
     public String index(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
@@ -46,24 +52,31 @@ public class MainController {
         model.addAttribute("orders", orders);
         model.addAttribute("orderProducts", orderProducts);
 
+        User user = userService.getFromAuthentication();
+        System.out.println(user);
+//        List<Order> unpaidOrders = orderService.findByUserAndCheckedAndPaid(user, false, false);
+//        List<Order> unpaidOrders = orderService.findByChecked(false);
+//        System.out.println(unpaidOrders);
+        model.addAttribute("user", user);
+        model.addAttribute("unpaidOrders", orderService.findByChecked(true));
         return "test";
     }
 
-    @GetMapping("/save")
-    public String save(Model model){
-        User user = userRepository.findByEmail("sasharoyenko@gmail.com");
-        List<Dish> dishes = List.of(
-                dishRepository.findById((long) 1).get(),
-                dishRepository.findById((long) 3).get());
-        List<Drink> drinks =   List.of(
-                drinkRepository.findById((long) 1).get(),
-                drinkRepository.findById((long) 2).get());
-        OrderProducts orderProducts = OrderProducts.builder()
-                .user(user)
-                .dishList(dishes)
-                .drinkList(drinks)
-                .build();
-        orderProductsRepository.save(orderProducts);
-        return  "test";
-    }
+//    @GetMapping("/save")
+//    public String save(Model model){
+//        User user = userRepository.findByEmail("sasharoyenko@gmail.com");
+//        List<Dish> dishes = List.of(
+//                dishRepository.findById((long) 1).get(),
+//                dishRepository.findById((long) 3).get());
+//        List<Drink> drinks =   List.of(
+//                drinkRepository.findById((long) 1).get(),
+//                drinkRepository.findById((long) 2).get());
+//        OrderProducts orderProducts = OrderProducts.builder()
+//                .user(user)
+//                .dishList(dishes)
+//                .drinkList(drinks)
+//                .build();
+//        orderProductsRepository.save(orderProducts);
+//        return  "test";
+//    }
 }

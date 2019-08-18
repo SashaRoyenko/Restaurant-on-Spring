@@ -6,6 +6,7 @@ import com.robosh.entities.OrderProducts;
 import com.robosh.repositories.DishRepository;
 import com.robosh.repositories.DrinkRepository;
 import com.robosh.repositories.OrderProductsRepository;
+import com.robosh.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,8 @@ public class PagesController {
     private DishRepository dishRepository;
     @Autowired
     private DrinkRepository drinkRepository;
-
+    @Autowired
+    UserService userService;
 
 
     @GetMapping("/menu")
@@ -30,4 +32,8 @@ public class PagesController {
         model.addAttribute("dishes", dishes);
     }
 
+    @GetMapping("/user")
+    public String getUser() {
+        return "redirect:/" + userService.getFromAuthentication().getRole().toString().toLowerCase() + "/account";
+    }
 }

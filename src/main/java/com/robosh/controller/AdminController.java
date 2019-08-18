@@ -12,22 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("/user")
 @Controller
-public class UserController {
-    @Autowired
-    private UserServiceImpl userService;
+@RequestMapping("/admin")
+public class AdminController {
+
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserServiceImpl userService;
 
     @GetMapping("/account")
     public String account(Model model) {
+        List<Order> uncheckedOrders = orderService.findByChecked(false);
+        List<Order> unpaidOrders = orderService.findByPaid(false);
+        List<Order> paidOrders = orderService.findByPaid(true);
         User user = userService.getFromAuthentication();
-        List<Order> unpaidOrders = orderService.findByUserAndCheckedAndPaid(user, true, false);
-        System.out.println(unpaidOrders);
         model.addAttribute("user", user);
         model.addAttribute("unpaidOrders", unpaidOrders);
-        return "users/user/account";
+        model.addAttribute("uncheckedOrders", uncheckedOrders);
+        model.addAttribute("paidOrders", paidOrders);
+        return "users/admin/account";
     }
-
 }

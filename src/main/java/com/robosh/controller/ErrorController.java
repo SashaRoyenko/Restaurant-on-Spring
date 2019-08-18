@@ -9,12 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/error")
 public class ErrorController {
 
-
     @GetMapping(value = "/403")
     public String error403() {
         return "error/403";
     }
-
-
 
 }
