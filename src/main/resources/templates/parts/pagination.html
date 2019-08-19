@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav th:fragment="pagination(url, page)" aria-label="Navigation">
+<!--    <input type="hidden" name="currentPage" value="1">-->
+    <ul class="pagination">
+        <th:block th:if="${page.number != 0}">
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{__${url}__?page=__${page.number - 1}__}">Previous</a>
+            </li>
+        </th:block>
+
+        <th:block th:each="i : ${#numbers.sequence(0, __${page.totalPages - 1}__)}">
+                <th:block th:if="${page.number == (i)}">
+                    <li class="page-item active">
+                        <a class="page-link"  href="#" th:text="${i + 1}"></a>
+                    </li>
+                </th:block>
+                <th:block th:unless="${page.number == (i)}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{__${url}__?page=__${i}__}" th:text="${i + 1}"></a>
+                    </li>
+                </th:block>
+        </th:block>
+
+        <th:block th:if="${page.number < page.totalPages - 1}">
+            <li class="page-item">
+                <a class="page-link"
+                   th:href="@{__${url}__?page=__${page.number + 1}__}">Next</a>
+            </li>
+        </th:block>
+    </ul>
+</nav>
+
+</body>
+</html>

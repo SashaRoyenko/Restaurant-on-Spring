@@ -54,11 +54,7 @@ public class MainController {
 
         User user = userService.getFromAuthentication();
         System.out.println(user);
-//        List<Order> unpaidOrders = orderService.findByUserAndCheckedAndPaid(user, false, false);
-//        List<Order> unpaidOrders = orderService.findByChecked(false);
-//        System.out.println(unpaidOrders);
-        model.addAttribute("user", user);
-        model.addAttribute("unpaidOrders", orderService.findByChecked(true));
+
         return "test";
     }
 

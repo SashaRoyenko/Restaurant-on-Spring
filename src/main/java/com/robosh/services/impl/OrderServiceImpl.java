@@ -7,8 +7,10 @@ import com.robosh.repositories.OrderRepository;
 import com.robosh.services.OrderProductsService;
 import com.robosh.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderRepository.save(order);
         orderProductsService.delete(orderProducts);
+        System.out.println(orderProducts);
     }
 
     @Override
@@ -68,5 +71,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findByPaid(boolean paid) {
         return orderRepository.findByPaid(paid);
+    }
+
+    @Override
+    public Page<Order> findByChecked(boolean checked, Pageable pageable) {
+        return orderRepository.findByChecked(checked, pageable);
+    }
+
+    @Override
+    public Page<Order> findByPaid(boolean paid, Pageable pageable) {
+        return orderRepository.findByPaid(paid, pageable);
     }
 }

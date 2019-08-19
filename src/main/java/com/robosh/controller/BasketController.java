@@ -6,12 +6,13 @@ import com.robosh.entities.OrderProducts;
 import com.robosh.entities.User;
 import com.robosh.services.impl.OrderProductsServiceImpl;
 import com.robosh.services.impl.UserServiceImpl;
-import org.apache.tomcat.jni.Thread;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user/basket")
@@ -24,6 +25,7 @@ public class BasketController {
 
     private OrderProducts orderProducts;
 
+//    TODO Rewrite with Optional
     private OrderProducts getOrderProducts() {
         User user = userService.getFromAuthentication();
         orderProducts = orderProductsService.findByUser(user);
@@ -33,6 +35,7 @@ public class BasketController {
             orderProductsService.save(orderProducts);
             orderProducts = orderProductsService.findByUser(user);
         }
+        System.out.println(orderProducts);
         return orderProducts;
     }
 
@@ -40,6 +43,7 @@ public class BasketController {
     public String basket(Model model) {
         orderProducts = getOrderProducts();
         model.addAttribute("products", orderProducts);
+        //    TODO Rewrite with Optional
         Float totalPrice = orderProductsService.getTotalPrice(orderProducts);
         if (totalPrice != null) {
             model.addAttribute("totalPrice", totalPrice);
