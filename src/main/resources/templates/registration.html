@@ -22,6 +22,12 @@
                  style="background-image: url(../images/bg_1.jpg);"></div>
             <div class="col-md-8 ftco-animate makereservation p-5 bg-light">
                 <form th:action="@{/registration}" method="post">
+
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                    </ul>
+
+                    <p th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -29,30 +35,35 @@
                                 <input type="text" class="form-control" placeholder="First Name" name="firstName">
                             </div>
                         </div>
+                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Last Name</label>
                                 <input type="text" class="form-control" placeholder="Last Name" name="lastName">
                             </div>
                         </div>
+                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('email')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Email</label>
                                 <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
                         </div>
+                        <!--                        <p class="icon-error" th:each="error : ${__#{fields.errors('phone')}__}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Phone</label>
                                 <input type="text" class="form-control" placeholder="Phone" name="phone">
                             </div>
                         </div>
+                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('password')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Enter Password</label>
                                 <input type="password" class="form-control" placeholder="Password" name="password">
                             </div>
                         </div>
+                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Confirm Password</label>
