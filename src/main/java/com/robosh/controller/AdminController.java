@@ -16,10 +16,14 @@ import org.springframework.data.domain.Pageable;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
     private OrderService orderService;
-    @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    public AdminController(OrderService orderService, UserServiceImpl userService) {
+        this.orderService = orderService;
+        this.userService = userService;
+    }
 
     @GetMapping("/account")
     public String account(Model model,

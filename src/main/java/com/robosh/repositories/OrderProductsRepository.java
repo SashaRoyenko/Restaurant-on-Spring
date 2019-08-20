@@ -6,6 +6,8 @@ import com.robosh.entities.OrderProducts;
 import com.robosh.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface OrderProductsRepository extends JpaRepository<OrderProducts, Long> {
-    OrderProducts findByUser(User user);
+    Optional<OrderProducts> findByUser(User user);
 }

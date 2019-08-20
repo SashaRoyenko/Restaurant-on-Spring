@@ -9,8 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class DishServiceImpl implements DishService {
+    private DishRepository dishRepository;
+
     @Autowired
-    DishRepository dishRepository;
+    public DishServiceImpl(DishRepository dishRepository) {
+        this.dishRepository = dishRepository;
+    }
 
     @Override
     public void save(Dish entity) {
