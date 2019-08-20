@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
     private OrderService orderService;
+
     @Autowired
-    private OrderProductsService orderProductsService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
     @PostMapping("/buy/{orderProducts}")
     public String order(@PathVariable OrderProducts orderProducts, @RequestParam String address) {
         orderService.createOrder(orderProducts, address);
@@ -23,14 +26,14 @@ public class OrderController {
     }
 
     @PutMapping("/pay/{order}")
-    public String pay(@PathVariable Order order){
+    public String pay(@PathVariable Order order) {
         order.setPaid(true);
         orderService.save(order);
         return "redirect:/user/account";
     }
 
     @PutMapping("/confirm/{order}")
-    public String confirm(@PathVariable Order order){
+    public String confirm(@PathVariable Order order) {
         order.setChecked(true);
         orderService.save(order);
         return "redirect:/admin/account";

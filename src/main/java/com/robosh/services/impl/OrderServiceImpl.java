@@ -16,10 +16,14 @@ import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Autowired
     private OrderRepository orderRepository;
-    @Autowired
     private OrderProductsService orderProductsService;
+
+    @Autowired
+    public OrderServiceImpl(OrderRepository orderRepository, OrderProductsService orderProductsService) {
+        this.orderRepository = orderRepository;
+        this.orderProductsService = orderProductsService;
+    }
 
     @Override
     public void save(Order entity) {

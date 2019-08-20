@@ -9,8 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class DrinkServiceImpl implements DrinkService {
+    private DrinkRepository drinkRepository;
+
     @Autowired
-    DrinkRepository drinkRepository;
+    public DrinkServiceImpl(DrinkRepository drinkRepository) {
+        this.drinkRepository = drinkRepository;
+    }
 
     @Override
     public void save(Drink entity) {

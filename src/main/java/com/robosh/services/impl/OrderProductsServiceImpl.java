@@ -14,8 +14,13 @@ import java.util.Optional;
 
 @Service
 public class OrderProductsServiceImpl implements OrderProductsService {
+
+    private OrderProductsRepository orderProductsRepository;
+
     @Autowired
-    OrderProductsRepository orderProductsRepository;
+    public OrderProductsServiceImpl(OrderProductsRepository orderProductsRepository) {
+        this.orderProductsRepository = orderProductsRepository;
+    }
 
     @Override
     public void save(OrderProducts entity) {
@@ -50,11 +55,10 @@ public class OrderProductsServiceImpl implements OrderProductsService {
 
     @Override
     public void addFood(OrderProducts orderProducts, Object food) {
-        if(food instanceof Dish){
+        if (food instanceof Dish) {
             orderProducts.addDish((Dish) food);
             orderProductsRepository.save(orderProducts);
-        }
-        else if(food instanceof Drink){
+        } else if (food instanceof Drink) {
             orderProducts.addDrink((Drink) food);
             orderProductsRepository.save(orderProducts);
         }
@@ -63,11 +67,11 @@ public class OrderProductsServiceImpl implements OrderProductsService {
     @Override
     public float getTotalPrice(OrderProducts orderProducts) {
         float price =
-        orderProducts.getDishList()
-                .stream()
-                .map(Dish::getPrice)
-                .reduce(0f, Float::sum);
-        price+= orderProducts.getDrinkList()
+                orderProducts.getDishList()
+                        .stream()
+                        .map(Dish::getPrice)
+                        .reduce(0f, Float::sum);
+        price += orderProducts.getDrinkList()
                 .stream()
                 .map(Drink::getPrice)
                 .reduce(0f, Float::sum);
@@ -78,11 +82,10 @@ public class OrderProductsServiceImpl implements OrderProductsService {
 
     @Override
     public void deleteFood(OrderProducts orderProducts, Object food) {
-        if(food instanceof Dish){
+        if (food instanceof Dish) {
             orderProducts.deleteDish((Dish) food);
             orderProductsRepository.save(orderProducts);
-        }
-        else if(food instanceof Drink){
+        } else if (food instanceof Drink) {
             orderProducts.deleteDrink((Drink) food);
             orderProductsRepository.save(orderProducts);
         }

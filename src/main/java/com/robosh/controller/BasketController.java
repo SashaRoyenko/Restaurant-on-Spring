@@ -17,15 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user/basket")
 public class BasketController {
-    @Autowired
+
     private OrderProductsServiceImpl orderProductsService;
-
-    @Autowired
     private UserServiceImpl userService;
-
     private OrderProducts orderProducts;
 
-//    TODO Rewrite with Optional
+    @Autowired
+    public BasketController(OrderProductsServiceImpl orderProductsService, UserServiceImpl userService, OrderProducts orderProducts) {
+        this.orderProductsService = orderProductsService;
+        this.userService = userService;
+        this.orderProducts = orderProducts;
+    }
+
+    //    TODO Rewrite with Optional
     private OrderProducts getOrderProducts() {
         User user = userService.getFromAuthentication();
         orderProducts = orderProductsService.findByUser(user);
