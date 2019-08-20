@@ -7,44 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
-
-import java.util.Map;
 
 @Controller
 public class RegistrationController {
-    @Autowired
-    UserServiceImpl userService;
-    @Autowired
+    private UserServiceImpl userService;
     private UserValidator userValidator;
 
+    @Autowired
+    public RegistrationController(UserServiceImpl userService, UserValidator userValidator) {
+        this.userService = userService;
+        this.userValidator = userValidator;
+    }
+
     @GetMapping("/registration")
-    public String registration(){
+    public String registration(Model model) {
+        model.addAttribute("user", new User());
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute(value="userForm") User userForm, BindingResult bindingResult, Model model) {
-//        User userFromDb = userService.findByEmail(user.getEmail());
-//        if (userFromDb != null) {
-//            model.put("message", "User with such email is exist");
-//            return "registration";
-//        }
-//        userService.register(user);
-//        return "redirect:/login";
-        userValidator.validate(userForm, bindingResult);
-
+    public String registerUser(User user, BindingResult bindingResult, Model model) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             return "registration";
         }
-        userService.save(userForm);
+        userService.save(user);
         return "redirect:/login";
     }
+
 
 }

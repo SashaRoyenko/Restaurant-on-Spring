@@ -21,54 +21,64 @@
             <div class="col-md-4 ftco-animate img"
                  style="background-image: url(../images/bg_1.jpg);"></div>
             <div class="col-md-8 ftco-animate makereservation p-5 bg-light">
-                <form th:action="@{/registration}" method="post">
+                <form th:action="@{/registration}" method="post" th:object="${user}">
 
-                    <ul>
-                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-                    </ul>
 
-                    <p th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">First Name</label>
-                                <input type="text" class="form-control" placeholder="First Name" name="firstName">
+                                <input type="text" class="form-control" placeholder="First Name" name="firstName"
+                                       th:value="${user.firstName}">
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('firstName')}"
+                                   th:text="${error}"></p>
                             </div>
                         </div>
-                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></p>-->
+
+
                         <div class="col-md-6">
+
                             <div class="form-group">
                                 <label for="">Last Name</label>
-                                <input type="text" class="form-control" placeholder="Last Name" name="lastName">
+                                <input type="text" class="form-control" placeholder="Last Name" name="lastName"
+                                       th:value="${user.lastName}">
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('lastName')}"
+                                   th:text="${error}"></p>
                             </div>
                         </div>
-                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('email')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Email</label>
-                                <input type="email" class="form-control" placeholder="Email" name="email">
+                                <input type="email" class="form-control" placeholder="Email" name="email"
+                                       th:value="${user.email}">
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('email')}"
+                                   th:text="${error}"></p>
                             </div>
                         </div>
-                        <!--                        <p class="icon-error" th:each="error : ${__#{fields.errors('phone')}__}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Phone</label>
-                                <input type="text" class="form-control" placeholder="Phone" name="phone">
+                                <input type="text" class="form-control" placeholder="Phone" name="phone"
+                                       th:value="${user.phone}">
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('phone')}"
+                                   th:text="${error}"></p>
                             </div>
                         </div>
-                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('password')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Enter Password</label>
                                 <input type="password" class="form-control" placeholder="Password" name="password">
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('password')}"
+                                   th:text="${error}"></p>
                             </div>
                         </div>
-                        <!--                        <p class="icon-error" th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}"></p>-->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Confirm Password</label>
                                 <input type="password" class="form-control" placeholder="Confirm Password"
                                        name="confirmPassword">
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('confirmPassword')}"
+                                   th:text="${error}"></p>
                             </div>
                         </div>
 
@@ -80,31 +90,6 @@
                         </div>
                     </div>
                 </form>
-                <div th:if="${message}">
-                    <p>Such user is exist</p>
-                </div>
-                <!--                <c:if test="${param.correctName==false}">-->
-                <!--                    <p>Un correct first name or last name</p>-->
-                <!--                </c:if>-->
-                <!--                <c:if test="${param.correctPhone==false}">-->
-                <!--                    <p>Un correct phone</p>-->
-                <!--                </c:if>-->
-                <!--                <c:if test="${param.correctEmail==false}">-->
-                <!--                    <p>Un correct email</p>-->
-                <!--                </c:if>-->
-                <!--                <c:if test="${param.correctPassword==false}">-->
-                <!--                    <p>Un correct password. It shout consist at least one uppercase letter, number and have at least 8-->
-                <!--                        characters</p>-->
-                <!--                </c:if>-->
-                <!--                <c:if test="${param.emailExist==true}">-->
-                <!--                    <p>User with such email is exist</p>-->
-                <!--                </c:if>-->
-                <!--                <c:if test="${param.phoneExist==true}">-->
-                <!--                    <p>User with such phone is exist</p>-->
-                <!--                </c:if>-->
-                <!--                <c:if test="${param.passwordMatch==false}">-->
-                <!--                    <p>Passwords are not equal</p>-->
-                <!--                </c:if>-->
             </div>
 
         </div>
