@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(User user) {
-        System.out.println(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -65,5 +64,25 @@ public class UserServiceImpl implements UserService {
     public User getFromAuthentication() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findByEmail(auth.getName());
+    }
+
+    @Override
+    public boolean update(User user) {
+        User oldUser = getFromAuthentication();
+
+        if (!user.getPassword().equals("")) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(oldUser.getPassword());
+            user.setConfirmPassword(oldUser.getConfirmPassword());
+        }
+
+        user.setId(oldUser.getId());
+
+        if (!oldUser.equals(user)) {
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }

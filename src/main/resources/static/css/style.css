@@ -9198,7 +9198,9 @@ p {
 .user_cabinet__list-item {
   margin-bottom: 15px;
 }
-
+.slide{
+  display:none;
+}
 .user_cabinet__list-item form,.user_cabinet__list-item #slidepassword {
   display: none;
 }

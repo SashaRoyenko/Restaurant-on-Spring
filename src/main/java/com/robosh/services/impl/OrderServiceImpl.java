@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findAll() {
-        return  orderRepository.findAll();
+        return orderRepository.findAll();
     }
 
     @Override
@@ -51,19 +53,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void createOrder(OrderProducts orderProducts, String address) {
-        Order order = Order.builder()
-                .address(address)
-                .user(orderProducts.getUser())
-                .bill(orderProductsService.getTotalPrice(orderProducts))
-                .build();
-        orderRepository.save(order);
+        orderRepository.save(
+                Order.builder()
+                        .address(address)
+                        .user(orderProducts.getUser())
+                        .bill(orderProductsService.getTotalPrice(orderProducts))
+                        .build());
         orderProductsService.delete(orderProducts);
-        System.out.println(orderProducts);
     }
 
     @Override
-    public List<Order> findByUserAndCheckedAndPaid(User user, boolean checked, boolean paid){
+    public List<Order> findByUserAndCheckedAndPaid(User user, boolean checked, boolean paid) {
         return orderRepository.findByUserAndCheckedAndPaid(user, checked, paid);
     }
 

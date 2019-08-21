@@ -6,4 +6,5 @@ public interface UserService extends Service<User>{
     void register(User user);
     User findByEmail(String email);
     User getFromAuthentication();
+    boolean update(User newUser);
 }

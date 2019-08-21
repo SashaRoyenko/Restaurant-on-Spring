@@ -8,7 +8,9 @@ import com.robosh.repositories.OrderProductsRepository;
 import com.robosh.services.OrderProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +51,7 @@ public class OrderProductsServiceImpl implements OrderProductsService {
 
 
     @Override
-    public OrderProducts findByUser(User user) {
+    public Optional<OrderProducts> findByUser(User user) {
         return orderProductsRepository.findByUser(user);
     }
 
@@ -75,8 +77,7 @@ public class OrderProductsServiceImpl implements OrderProductsService {
                 .stream()
                 .map(Drink::getPrice)
                 .reduce(0f, Float::sum);
-
-
+        System.out.println(price);
         return price;
     }
 
@@ -90,5 +91,24 @@ public class OrderProductsServiceImpl implements OrderProductsService {
             orderProductsRepository.save(orderProducts);
         }
     }
+
+    @Override
+    @Transactional
+    public OrderProducts getOrderProductsForUser(User user) {
+
+        return orderProductsRepository.findByUser(user).orElseGet(() ->
+                {
+                    orderProductsRepository.save(
+                            OrderProducts.builder()
+                                    .user(user)
+                                    .dishList(new ArrayList<>())
+                                    .drinkList(new ArrayList<>())
+                                    .build());
+                    return orderProductsRepository.findByUser(user).get();
+                }
+
+        );
+    }
+
 
 }

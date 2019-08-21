@@ -20,6 +20,9 @@
         <!--        <c:if test="${param.userExist==false}">-->
         <!--            <h3>There is no such user</h3>-->
         <!--        </c:if>-->
+        <th:block  th:if="${error}">
+        <p class="icon-error text-danger" th:text="#{__${error}__}"></p>
+        </th:block>
         <p/>
         <th:block th:text="#{label.login.without_account}"></th:block>
         &nbsp;&nbsp;

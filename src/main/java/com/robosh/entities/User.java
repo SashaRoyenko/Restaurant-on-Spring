@@ -2,6 +2,7 @@ package com.robosh.entities;
 
 import com.robosh.entities.enums.Role;
 import lombok.*;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Email;
 @Builder
 @Entity(name = "user")
 @Data
+
 public class User {
     @Id
     @Column(name = "user_id")
@@ -32,7 +34,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
-//    @OneToOne(mappedBy = "user")
+
+    //    @OneToOne(mappedBy = "user")
 //    Order order;
 //    @OneToOne(mappedBy = "user")
 //    OrderProducts orderProducts;

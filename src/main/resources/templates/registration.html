@@ -23,6 +23,8 @@
             <div class="col-md-8 ftco-animate makereservation p-5 bg-light">
                 <form th:action="@{/registration}" method="post" th:object="${user}">
 
+                    <p class="icon-error text-danger" th:each="error : ${#fields.errors('lastName')}"
+                       th:text="${error}"></p>
 
                     <div class="row">
                         <div class="col-md-6">

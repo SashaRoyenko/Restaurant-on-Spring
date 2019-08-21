@@ -29,6 +29,7 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registerUser(User user, BindingResult bindingResult, Model model) {
+
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";

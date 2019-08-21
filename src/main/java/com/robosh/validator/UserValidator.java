@@ -43,24 +43,26 @@ public class UserValidator implements Validator {
             errors.rejectValue("lastName", "userForm.invalid.name", "Invalid data");
         }
 
-        if (!user.getEmail().matches(CHECK_EMAIL)) {
-            errors.rejectValue("email", "userForm.invalid.email", "Invalid data");
-        }
-        if (userService.findByEmail(user.getEmail()) != null) {
-            errors.rejectValue("email", "userForm.email.duplicate", "Invalid data");
-        }
+//        if (!user.getEmail().matches(CHECK_EMAIL)) {
+//            errors.rejectValue("email", "userForm.invalid.email", "Invalid data");
+//        }
+
+//        if (userService.findByEmail(user.getEmail()) != null) {
+//            errors.rejectValue("email", "userForm.email.duplicate", "Invalid data");
+//        }
+
         if (!user.getPhone().matches(CHECK_PHONE)) {
             errors.rejectValue("phone", "userForm.invalid.phone", "Invalid data");
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Required", "Invalid data");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "Required", "Invalid data");
-
-        if (!user.getPassword().matches(CHECK_PASSWORD)) {
-            errors.rejectValue("password", "userForm.invalid.password", "Invalid data");
-        }
-
-        if (!user.getConfirmPassword().equals(user.getPassword())) {
-            errors.rejectValue("confirmPassword", "userForm.different.password", "Invalid data");
-        }
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Required", "Invalid data");
+//        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "Required", "Invalid data");
+//
+//        if (!user.getPassword().matches(CHECK_PASSWORD)) {
+//            errors.rejectValue("password", "userForm.invalid.password", "Invalid data");
+//        }
+//
+//        if (!user.getConfirmPassword().equals(user.getPassword())) {
+//            errors.rejectValue("confirmPassword", "userForm.different.password", "Invalid data");
+//        }
     }
 }
