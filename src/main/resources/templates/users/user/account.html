@@ -27,11 +27,14 @@
         <div class="tab-content col-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <div class="user_cabinet offset-1">
-                    <ul class="user_cabinet__list d-flex flex-column">
 
-                            <form class="form-group" th:action="@{/user/__${user.id}__}" method="post"
-                                  th:object="${updateUser}">
-                                <input type="hidden" name="_method" value="put">
+                    <div th:object="${user}">
+                        <form class="form-group" th:action="@{/user/__${user.id}__}" method="post"
+                              th:object="${updateUser}">
+
+                            <input type="hidden" name="_method" value="put">
+                            <input type="hidden" th:value="${user.id}">
+                            <ul class="user_cabinet__list d-flex flex-column">
                                 <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
                                     <h6 class="user_cabinet__title" th:text="${user.firstName}"></h6>
                                     <i class="user_cabinet__edit fas fa-edit" id="editname"></i>
@@ -98,9 +101,10 @@
                                         </div>
                                     </div>
                                 </li>
-                                <input class="btn menu_btn" type="submit" th:value="#{label.btn.enter}"/>
+                            </ul>
+                            <input class="btn menu_btn w-25" type="submit" th:value="#{label.btn.enter}"/>
                         </form>
-                    </ul>
+                    </div>
                     <form th:action="@{/logout}">
                         <button type="submit" class="logout btn" th:text="#{label.btn.logout}">
                         </button>

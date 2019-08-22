@@ -77,7 +77,6 @@ public class OrderProductsServiceImpl implements OrderProductsService {
                 .stream()
                 .map(Drink::getPrice)
                 .reduce(0f, Float::sum);
-        System.out.println(price);
         return price;
     }
 

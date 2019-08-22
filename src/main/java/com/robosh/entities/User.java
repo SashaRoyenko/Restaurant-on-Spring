@@ -13,7 +13,7 @@ import javax.validation.constraints.Email;
 @Entity(name = "user")
 @Data
 
-public class User {
+public class User implements Cloneable{
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     //    @OneToOne(mappedBy = "user")
 //    Order order;
