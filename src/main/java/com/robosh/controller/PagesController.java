@@ -51,7 +51,7 @@ public class PagesController {
         try {
             updateUser = (User) updateUser.clone();
         } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+           return "redirect:/500";
         }
 
         User authUser = userService.getFromAuthentication();
@@ -60,7 +60,7 @@ public class PagesController {
             model.addAttribute("user", authUser);
             model.addAttribute("updateUser", updateUser);
             model.addAttribute("unpaidOrders", orderService.findByUserAndCheckedAndPaid(authUser, true, false));
-            return "users/user/account";
+            return "users/" + updateUser.getRole().toString().toLowerCase() + "/account";
         }
 
         return userService.update(updateUser) ? "redirect:/login?logout=true" : "redirect:/user";

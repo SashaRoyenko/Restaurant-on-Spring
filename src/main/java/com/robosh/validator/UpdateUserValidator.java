@@ -49,11 +49,11 @@ public class UpdateUserValidator implements Validator {
             errors.rejectValue("phone", "userForm.invalid.phone", "Invalid data");
         }
 
-        if (!user.getPassword().matches(CHECK_PASSWORD)) {
+        if (!user.getPassword().matches(CHECK_PASSWORD) && !user.getPassword().equals("")) {
             errors.rejectValue("password", "userForm.invalid.password", "Invalid data");
         }
 
-        if (!user.getConfirmPassword().equals(user.getPassword())) {
+        if (!user.getConfirmPassword().equals(user.getPassword()) && !user.getPassword().equals("")) {
             errors.rejectValue("confirmPassword", "userForm.different.password", "Invalid data");
         }
     }

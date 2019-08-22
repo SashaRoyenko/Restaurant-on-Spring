@@ -1,5 +1,6 @@
 package com.robosh.controller;
 
+import com.robosh.entities.User;
 import com.robosh.services.OrderService;
 import com.robosh.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class AdminController {
                                   direction = Sort.Direction.DESC,
                                   size = 5)
                                   Pageable pageable) {
-
         model.addAttribute("user", userService.getFromAuthentication());
+        model.addAttribute("updateUser", new User());
         model.addAttribute("uncheckedOrders", orderService.findByChecked(false, pageable));
         model.addAttribute("paidOrders", orderService.findByPaid(false, pageable));
         return "users/admin/account";

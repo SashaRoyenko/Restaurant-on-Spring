@@ -29,46 +29,84 @@
         <div class="tab-content col-9" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <div class="user_cabinet Offset-1">
-                    <ul class="user_cabinet__list d-flex flex-column">
-                        <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
-                            <h6 class="user_cabinet__title" th:text="${user.firstName}"></h6><i
-                                class="user_cabinet__edit fas fa-edit" id="editname"></i>
-                            <form class="form-group slide" action="" method="post" id="slidename">
-                                <input class="form-control" type="text" placeholder="First Name">
-                            </form>
-                        </li>
-                        <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
-                            <h6 class="user_cabinet__title" th:text="${user.lastName}"></h6><i
-                                class="user_cabinet__edit fas fa-edit" id="editsurname"></i>
-                            <form class="form-group" action="" method="post" id="slidesurname">
-                                <input class="form-control" type="text" placeholder="Last Name">
-                            </form>
-                        </li>
-                        <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
-                            <h6 class="user_cabinet__title" th:text="${user.email}"></h6><i
-                                class="user_cabinet__edit fas fa-edit" id="editemail"></i>
-                            <form class="form-group" action="" method="post" id="slideemail">
-                                <input class="form-control" type="email" placeholder="Email">
-                            </form>
-                        </li>
-                        <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
-                            <h6 class="user_cabinet__title" th:text="${user.phone}"></h6><i
-                                class="user_cabinet__edit fas fa-edit" id="editphone"></i>
-                            <form class="form-group" action="" method="post" id="slidephone">
-                                <input class="form-control" type="phone" placeholder="Phone">
-                            </form>
-                        </li>
-                        <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
-                            <h6 class="user_cabinet__title">********</h6><i class="user_cabinet__edit fas fa-edit"
-                                                                            id="editpassword"></i>
-                            <form class="form-group d-flex flex-row user_account__form" action="" method="post">
-                                <div id="slidepassword">
-                                    <input class="form-control mr-4" type="password" placeholder="Password">
-                                    <input class="form-control" type="password" placeholder="Confirm Password">
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
+                    <div th:object="${user}">
+                        <form class="form-group" th:action="@{/user/__${user.id}__}" method="post"
+                              th:object="${updateUser}">
+
+                            <input type="hidden" name="_method" value="put">
+
+<!--                            <input type="hidden" th:value="${user.id}">-->
+                            <ul class="user_cabinet__list d-flex flex-column">
+                                <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
+                                    <h6 class="user_cabinet__title" th:text="${user.firstName}"></h6>
+                                    <i class="user_cabinet__edit fas fa-edit" id="editname"></i>
+
+                                    <div class="slide" id="slidename">
+                                        <input class="form-control" type="text" placeholder="First Name"
+                                               name="firstName"
+                                               th:value="${user.firstName}">
+                                    </div>
+
+                                    <p class="icon-error text-danger" th:each="error : ${#fields.errors('firstName')}"
+                                       th:text="${error}"></p>
+                                </li>
+                                <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
+                                    <h6 class="user_cabinet__title" th:text="${user.lastName}"></h6>
+                                    <i class="user_cabinet__edit fas fa-edit" id="editsurname"></i>
+
+
+                                    <div class="slide" id="slidesurname">
+                                        <input class="form-control" type="text" name="lastName" placeholder="Last Name"
+                                               th:value="${user.lastName}">
+                                    </div>
+                                    <p class="icon-error text-danger" th:each="error : ${#fields.errors('lastName')}"
+                                       th:text="${error}"></p>
+                                </li>
+                                <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
+                                    <h6 class="user_cabinet__title" th:text="${user.email}"></h6><i
+                                        class="user_cabinet__edit fas fa-edit" id="editemail"></i>
+
+
+                                    <div class="slide" id="slideemail">
+                                        <input id="slide" class="form-control" type="email" name="email"
+                                               placeholder="Email"
+                                               th:value="${user.email}">
+                                    </div>
+                                    <p class="icon-error text-danger" th:each="error : ${#fields.errors('email')}"
+                                       th:text="${error}"></p>
+                                </li>
+                                <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
+                                    <h6 class="user_cabinet__title" th:text="${user.phone}"></h6><i
+                                        class="user_cabinet__edit fas fa-edit" id="editphone"></i>
+
+
+                                    <div class="slide" id="slidephone">
+                                        <input Class="form-control" type="text" name="phone" placeholder="Phone"
+                                               th:value="${user.phone}">
+                                    </div>
+                                    <p class="icon-error text-danger" th:each="error : ${#fields.errors('phone')}"
+                                       th:text="${error}"></p>
+                                </li>
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('password')}"
+                                   th:text="${error}"></p>
+                                <p class="icon-error text-danger" th:each="error : ${#fields.errors('confirmPassword')}"
+                                   th:text="${error}"></p>
+                                <li class="user_cabinet__list-item d-flex flex-row align-items-baseline">
+                                    <h6 class="user_cabinet__title">********</h6>
+                                    <i class="user_cabinet__edit fas fa-edit" id="editpassword"></i>
+                                    <div class="form-group d-flex flex-row user_account__form">
+                                        <div id="slidepassword">
+                                            <input class="form-control mr-4" type="password" name="password"
+                                                   placeholder="Password">
+                                            <input class="form-control" type="password" name="confirmPassword"
+                                                   placeholder="Confirm Password">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <input class="btn menu_btn w-25" type="submit" th:value="#{label.btn.enter}"/>
+                        </form>
+                    </div>
                     <form th:action="@{/logout}">
                         <button type="submit" class="logout btn" th:text="#{label.btn.logout}">
                         </button>
